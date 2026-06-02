@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="topbar">
+
+    <div class="welcome">
+
+        <h1>
+            Welcome {{ request.user.username }} 👋
+        </h1>
+
+        <p>
+            Manage your daily tasks easily
+        </p>
+
+    </div>
+
+    <a href="{% url 'add_task' %}" class="add-btn">
+        + Add New Task
+    </a>
+
+</div>
+
+
+<!-- CARDS -->
+
+<div class="cards">
+
+    <div class="card">
+
+        <h2>Total Tasks</h2>
+
+        <h1>
+            {{ total_tasks }}
+        </h1>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Completed</h2>
+
+        <h1>
+            {{ completed_tasks }}
+        </h1>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Pending</h2>
+
+        <h1>
+            {{ pending_tasks }}
+        </h1>
+
+    </div>
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="table-box">
+
+    <h1>Recent Tasks</h1>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Task</th>
+                <th>Priority</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for task in recent_tasks %}
+
+            <tr>
+
+                <td>{{ task.title }}</td>
+
+                <td>{{ task.priority }}</td>
+
+                <td>{{ task.deadline }}</td>
+
+                <td>{{ task.status }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'update_task' task.id %}"
+                        class="edit-btn"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'delete_task' task.id %}"
+                        class="delete-btn"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

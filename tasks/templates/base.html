@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TaskPro Dashboard</title>
+
+    <!-- GOOGLE FONT -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            display:flex;
+            background:#eef2ff;
+            overflow-x:hidden;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:270px;
+            height:100vh;
+            background:#0f172a;
+            padding:30px 20px;
+            position:fixed;
+            left:0;
+            top:0;
+
+            animation:slideLeft 1s ease;
+        }
+
+        .logo{
+            color:white;
+            font-size:40px;
+            font-weight:700;
+            margin-bottom:50px;
+        }
+
+        .logo span{
+            color:#6366f1;
+        }
+
+        .menu a{
+            display:flex;
+            align-items:center;
+            gap:15px;
+
+            text-decoration:none;
+            color:white;
+
+            padding:16px;
+            margin-bottom:20px;
+
+            border-radius:14px;
+
+            transition:0.4s;
+        }
+
+        .menu a:hover{
+            background:#6366f1;
+            transform:translateX(10px);
+        }
+
+        .menu i{
+            font-size:20px;
+        }
+
+        /* MAIN */
+
+        .main{
+            margin-left:270px;
+            width:100%;
+            padding:40px;
+
+            animation:fadeIn 1s ease;
+        }
+
+        /* TOPBAR */
+
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            margin-bottom:40px;
+        }
+
+        .welcome h1{
+            font-size:50px;
+            color:#111827;
+        }
+
+        .welcome p{
+            color:#6b7280;
+            margin-top:10px;
+            font-size:18px;
+        }
+
+        .add-btn{
+            background:linear-gradient(
+                135deg,
+                #6366f1,
+                #7c3aed
+            );
+
+            color:white;
+            padding:18px 28px;
+
+            border-radius:14px;
+
+            text-decoration:none;
+
+            font-weight:600;
+
+            transition:0.4s;
+        }
+
+        .add-btn:hover{
+            transform:scale(1.05);
+            box-shadow:0px 10px 20px rgba(99,102,241,0.4);
+        }
+
+        /* CARDS */
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:25px;
+
+            margin-bottom:40px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.6);
+
+            backdrop-filter:blur(15px);
+
+            padding:35px;
+
+            border-radius:20px;
+
+            box-shadow:0px 10px 30px rgba(0,0,0,0.08);
+
+            transition:0.4s;
+
+            animation:up 0.8s ease;
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+        }
+
+        .card h2{
+            color:#6b7280;
+            margin-bottom:20px;
+            font-size:20px;
+        }
+
+        .card h1{
+            font-size:55px;
+            color:#111827;
+        }
+
+        /* TABLE */
+
+        .table-box{
+            background:white;
+
+            border-radius:20px;
+
+            padding:30px;
+
+            box-shadow:0px 10px 30px rgba(0,0,0,0.08);
+
+            animation:up 1s ease;
+        }
+
+        .table-box h1{
+            margin-bottom:25px;
+            color:#111827;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        table th{
+            background:linear-gradient(
+                135deg,
+                #6366f1,
+                #7c3aed
+            );
+
+            color:white;
+
+            padding:18px;
+
+            text-align:left;
+        }
+
+        table td{
+            padding:18px;
+            border-bottom:1px solid #eee;
+        }
+
+        table tr{
+            transition:0.3s;
+        }
+
+        table tr:hover{
+            background:#f5f7ff;
+        }
+
+        .edit-btn{
+            text-decoration:none;
+            color:#2563eb;
+            font-weight:600;
+        }
+
+        .delete-btn{
+            text-decoration:none;
+            color:red;
+            margin-left:10px;
+            font-weight:600;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes slideLeft{
+
+            from{
+                transform:translateX(-100%);
+            }
+
+            to{
+                transform:translateX(0);
+            }
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+            }
+
+            to{
+                opacity:1;
+            }
+        }
+
+        @keyframes up{
+
+            from{
+                transform:translateY(30px);
+                opacity:0;
+            }
+
+            to{
+                transform:translateY(0);
+                opacity:1;
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1000px){
+
+            .cards{
+                grid-template-columns:1fr;
+            }
+
+            .sidebar{
+                width:90px;
+            }
+
+            .sidebar .text{
+                display:none;
+            }
+
+            .main{
+                margin-left:90px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            Task<span>Pro</span>
+        </div>
+
+        <div class="menu">
+
+            <a href="{% url 'home' %}">
+                <i class="fa-solid fa-house"></i>
+                <span class="text">Dashboard</span>
+            </a>
+
+            <a href="{% url 'add_task' %}">
+                <i class="fa-solid fa-plus"></i>
+                <span class="text">Add Task</span>
+            </a>
+
+            <a href="{% url 'pending_tasks' %}">
+                <i class="fa-solid fa-list"></i>
+                <span class="text">Pending Tasks</span>
+            </a>
+
+            <a href="{% url 'completed_tasks' %}">
+                <i class="fa-solid fa-circle-check"></i>
+                <span class="text">Completed</span>
+            </a>
+
+            <a href="{% url 'logout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="text">Logout</span>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

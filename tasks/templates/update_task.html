@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    .update-container{
+
+        width:100%;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        padding-top:40px;
+
+        animation:fadeIn 0.8s ease;
+    }
+
+    .update-box{
+
+        width:550px;
+
+        background:white;
+
+        padding:40px;
+
+        border-radius:20px;
+
+        box-shadow:0px 10px 30px rgba(0,0,0,0.1);
+
+        animation:up 0.8s ease;
+    }
+
+    .update-box h1{
+
+        text-align:center;
+
+        margin-bottom:30px;
+
+        color:#111827;
+
+        font-size:38px;
+    }
+
+    .form-group{
+
+        margin-bottom:20px;
+    }
+
+    .form-group label{
+
+        display:block;
+
+        margin-bottom:8px;
+
+        font-weight:600;
+
+        color:#374151;
+    }
+
+    .form-control{
+
+        width:100%;
+
+        padding:14px;
+
+        border:1px solid #d1d5db;
+
+        border-radius:12px;
+
+        outline:none;
+
+        font-size:16px;
+
+        transition:0.3s;
+    }
+
+    .form-control:focus{
+
+        border-color:#6366f1;
+
+        box-shadow:0px 0px 10px rgba(99,102,241,0.3);
+    }
+
+    .update-btn{
+
+        width:100%;
+
+        padding:15px;
+
+        border:none;
+
+        border-radius:12px;
+
+        background:linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
+
+        color:white;
+
+        font-size:17px;
+
+        font-weight:600;
+
+        cursor:pointer;
+
+        transition:0.4s;
+    }
+
+    .update-btn:hover{
+
+        transform:translateY(-3px);
+
+        box-shadow:0px 10px 20px rgba(99,102,241,0.3);
+    }
+
+</style>
+
+
+<div class="update-container">
+
+    <div class="update-box">
+
+        <h1>Update Task</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                <label>Task Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    value="{{ task.title }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    class="form-control"
+                    rows="4"
+                >{{ task.description }}</textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Priority</label>
+
+                <select
+                    name="priority"
+                    class="form-control"
+                >
+
+                    <option value="Low"
+                        {% if task.priority == 'Low' %}
+                            selected
+                        {% endif %}
+                    >
+                        Low
+                    </option>
+
+                    <option value="Medium"
+                        {% if task.priority == 'Medium' %}
+                            selected
+                        {% endif %}
+                    >
+                        Medium
+                    </option>
+
+                    <option value="High"
+                        {% if task.priority == 'High' %}
+                            selected
+                        {% endif %}
+                    >
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select
+                    name="status"
+                    class="form-control"
+                >
+
+                    <option value="Pending"
+                        {% if task.status == 'Pending' %}
+                            selected
+                        {% endif %}
+                    >
+                        Pending
+                    </option>
+
+                    <option value="Completed"
+                        {% if task.status == 'Completed' %}
+                            selected
+                        {% endif %}
+                    >
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Deadline</label>
+
+                <input
+                    type="date"
+                    name="deadline"
+                    class="form-control"
+                    value="{{ task.deadline|date:'Y-m-d' }}"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="update-btn"
+            >
+                Update Task
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
