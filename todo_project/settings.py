@@ -1,3 +1,4 @@
+import os
 import ssl
 import certifi
 from pathlib import Path
@@ -8,11 +9,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # ================= SECURITY =================
-SECRET_KEY = 'django-insecure-0wbay+7xws_$q=su*xxc7c91t$5r0yoxc@+6%bm^2a+5b!(1#$'
+# Read sensitive settings from environment variables for deployment
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-replace-me')
 
-DEBUG = True
+# Set DEBUG via environment variable (default True for local development)
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS can be a comma-separated list in env, otherwise empty list
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else []
 
 
 # ================= INSTALLED APPS =================
@@ -123,11 +127,12 @@ USE_TZ = True
 
 
 # ================= STATIC FILES =================
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+# if you need a global static folder in the future:
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# for production collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # ================= LOGIN SETTINGS =================
@@ -150,10 +155,10 @@ EMAIL_USE_TLS = True
 
 EMAIL_USE_SSL = False
 
-EMAIL_HOST_USER = 'nvsaianila@gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 
-# Gmail App Password
-EMAIL_HOST_PASSWORD = 'vvvdtknoqqvmjdod'
+# Gmail App Password (set in environment; do not commit plaintext passwords)
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
