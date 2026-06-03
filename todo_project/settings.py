@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-replace-me')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # ALLOWED_HOSTS can be a comma-separated list in env, otherwise empty list
-ALLOWED_HOSTS =[*]
+ALLOWED_HOSTS =['*']
 
 
 # ================= INSTALLED APPS =================
